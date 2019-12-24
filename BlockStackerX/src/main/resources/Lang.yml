@@ -1,0 +1,59 @@
+#MESSAGE DISPLAYED BEFORE EACH MESSAGE OF THE PLUGIN
+prefix: "&9&lBlockStacker &c&l// &9"
+usage:
+  - '&9&l============================================='
+  - ''
+  - '&9/BlockStacker give [PLAYER] [TYPE] [<AMOUNT>] &7give players blockStacker related items'
+  - '&9/BlockStacker getWorth &7messages you with worth of held block'
+  - '&9/BlockStacker setWorth [VALUE] &7Set the level value of blocks'
+  - '&9/BlockStacker sync &7Attempts to sync your yaml data with mySqlData'
+  - '&9/BlockStacker list [PARAMS]'
+  - '&9/BlockStacker debug [PARAMS]'
+  - ''
+  - '&9&l============================================='
+#################INGAME######################
+calculationEvent: "Levels From Stackers:&b&l %LEVELS%"
+receiveStacker: "You have received a blockStacker!"
+playerNotFound: "Player Could not be found"
+notAnInt: "Amount must be an Integer!"
+worthSave: "Worth of %ITEM% is now &b&l%VALUE%"
+worth: "Worth: &b&l%WORTH%"
+stackerNotLoaded: "The given stacker type could not be found"
+cmdNotRecognized: "Command not recognized!"
+onlyPlayers: "Only Players can run this command"
+brokeStacker: "Stacker broke!"
+cantStackStackers: "You cant stack other stackers"
+error: "An Error has occurred"
+chosenMaterial: "You have chosen to stack %BLOCKTYPE%"
+addValue: "Please add a value to your command"
+incrementMessage: "You have added %AMOUNT% blocks to your stacker!"
+decrementMessage: "You have taken %AMOUNT% blocks from your stacker!"
+noBlockInHand: "Please hold a block"
+stackerOccupied: "You cannot stack this block whilst stacker occupied by %BLOCK%"
+incorrectBlockInHand: "This block cannot be stacked here!"
+notYourStacker: "You have no permission to use this stacker!"
+disabledStacker: "This stacker is disabled - Type must be of type BLOCK"
+maxStack: "Maximum of this stacker is %MAX% !"
+stackerEmpty: "Stacker has no value left!"
+noInventorySpace: "Please make some room in your inventory!"
+holdPickaxe: "Please hold a pickaxe to break stacker"
+noPermission: "You have no permission to run this command!"
+pluginReload: "Plugin has reloaded successfully"
+syncAttempt: "Attempting to sync yaml with mySql!"
+syncSuccess: "Sync Successful!"
+syncFail: "Sync Failed!"
+displayReload: "Reloading displays!"
+sqlConnectionError: "Could not find connection to database!"
+###############Console##############
+sqlConnect: "[BlockStackerX] Attempting to connect to database"
+sqlError: "[BlockStackerX] Failed to execute query please check your database information!"
+sqlUpdateAndSave: "[BlockStackerX] Attempting to update and save to mySql Database!"
+sqlLoad: "[BlockStackerX] Attempting to load data!"
+sqlInvalidConnection: "[BlockStackerX] Please check your database information or turn mySql OFF!"
+stackerFormatError: "[BlockStackerX] Failed to format dataString back to object!"
+yamlSaveSqlError: "[BlockStackerX] Could not save to sql saving to yaml!"
+yamlLoadSqlError: "[BlockStackerX] Could not load from sql, attempting to load from Yaml File"
+yamlSave: "[BlockStackerX] Attempting to save data to yaml file!"
+yamlLoad: "[BlockStackerX] Attempting to load data from yaml file!"
+yamlUse: "[BlockStackerX] Using Yaml Storage"
+invalidStacker: "[BlockStackerX] Stacker %TYPE%`s Configuration is invalid!!"

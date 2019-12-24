@@ -1,0 +1,28 @@
+main: me.epicgodmc.blockstackerx.BlockStackerX
+version: 1.0-SNAPSHOT
+name: BlockStackerX
+author: EpicGodMC
+commands:
+  blockstackerconsole:
+    aliases:
+      - bsc
+  blockstacker:
+    description: Main command for managing blockstacks
+    aliases:
+      - bs
+permissions:
+  bs.*:
+    default: op
+
+  bs.setworth:
+    default: op
+  bs.list:
+    default: op
+  bs.give:
+    default: op
+  bs.getworth:
+    default: op
+  bs.debug:
+    default: op
+  bs.sync:
+    default: op

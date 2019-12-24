@@ -1,0 +1,54 @@
+#MySQL options
+mySql:
+  enabled: false
+  host: "null"
+  database: "null"
+  username: "null"
+  password: "null"
+  table: "null"
+  port: 3306
+
+#Wether the plugin should Autosave
+Autosave: true
+#At what interval the plugin will save the data, in Minutes
+AutosaveInterval: 15
+
+#HERE YOU CAN CREATE ANY CUSTOM STACKER YOU LIKE
+#EVERY STACKER REQUIRES ALL VALUES SHOWN IN THE DEFAULT
+Stackers:
+  #The stacks config name
+  testStack:
+    #Offset of the display starting from the corner of the placed stacker hence the default value will place it in middle above block
+    displayOffset: "0.5,-1,0.5"
+    #The Block this stack will be made from when spawned in
+    itemType: "IRON_BLOCK"
+    #The name this block has when spawned in
+    displayName: "&f&lTestStacker"
+    #Wether or not you want your item to glow (look enchanted)
+    glow: true
+    #Lore your item has when spawned in
+    lore:
+      - '&1line1'
+      - '&2line2'
+      - '&3line3'
+    #How the amount display above your stack looks
+    valueFormat: "&9&lValue:&f&l %VALUE%"
+    #The maximum amount of blocks players can stack in 1 stacker
+    maxStack: 100
+    #Wether team members of the player that placed the stacker can stack blocks as well
+    teamStacking: false
+    #List of blocks that your stack will accept players can only stack 1 type at once they must choose
+    allowedBlocks:
+      - 'DIAMOND_BLOCK'
+      - 'EMERALD_BLOCK'
+      - 'IRON_BLOCK'
+    #How the item looks when you pick your stack up
+    item:
+      displayName: "&4&lTestStack"
+      glow: false
+      lore:
+        - '&e&l========================='
+        - ''
+        - '&e&lContains&f&l %VALUE% &e&lblocks'
+        - ''
+        - '&e&l========================='
