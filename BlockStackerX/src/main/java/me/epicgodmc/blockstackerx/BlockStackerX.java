@@ -24,6 +24,9 @@ public class BlockStackerX extends JavaPlugin {
     public FileConfiguration config = this.getConfig();
     private PluginManager pluginManager = this.getServer().getPluginManager();
 
+    public static boolean aSkyBlock;
+    public static boolean skyBlockX;
+
     public final boolean useSql = config.getBoolean("mySql.enabled");
     private Connection connection;
     private String host, database, username, password, table;
@@ -47,8 +50,10 @@ public class BlockStackerX extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Metrics metrics = new Metrics(this);
+        if (!checkDependencies()) return;
 
+        Metrics metrics = new Metrics(this);
+        
         registerInstances();
         setupFiles();
         registerEvents();
@@ -63,6 +68,7 @@ public class BlockStackerX extends JavaPlugin {
                 if (connection != null && !connection.isClosed())
                 {
                     mySqlManager.checkForTable(table);
+
                     new DataBasePing(this);
                     Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN +"[BlockStackerX] Loaded "+mySqlManager.load()+" Stackers");
                 }else{
@@ -75,29 +81,72 @@ public class BlockStackerX extends JavaPlugin {
         }
 
         util.checkConfiguration();
-        new DisplayRefresh(this);
+
         new AutoSave(this);
+
     }
 
     @Override
     public void onDisable() {
-
-        try {
-            if (!useSql) {
-                yamlData.save();
-            } else {
-                if (connection != null && !connection.isClosed()) {
-                    mySqlManager.updateAndSave();
-                } else {
+            try {
+                if (!useSql) {
                     yamlData.save();
+                } else {
+                    if (connection != null && !connection.isClosed()) {
+                        mySqlManager.updateAndSave();
+                    } else {
+                        yamlData.save();
+                    }
+                    disconnectSql();
                 }
-                disconnectSql();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            DisplayManager.deleteAllDisplays();
         }
-        util.killAllDisplays();
+
+
+
+    public boolean checkDependencies()
+    {
+        if (!Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays"))
+        {
+            getLogger().severe("*** HolographicDisplays is not installed or not enabled. ***");
+            getLogger().severe("*** This plugin will be disabled. ***");
+            this.setEnabled(false);
+            return false;
+        }
+
+        if (this.getServer().getPluginManager().getPlugin("ASkyBlock") == null)
+        {
+            aSkyBlock = false;
+
+        }else
+        {
+            aSkyBlock = true;
+            System.out.print("[BlockStackerX] Found ASkyBlock");
+            pluginManager.registerEvents(new ASkyBlockCalculation(), this);
+            return true;
+        }
+        if (!this.getServer().getPluginManager().isPluginEnabled("SkyblockX"))
+        {
+            skyBlockX = false;
+        }else{
+            skyBlockX = true;
+            System.out.print("[BlockStackerX] Found SkyBlockX");
+            return true;
+        }
+
+
+        if (!aSkyBlock && !skyBlockX)
+        {
+            this.getLogger().severe("Could not find skyblock dependency");
+            this.getServer().getPluginManager().disablePlugin(this);
+            return false;
+        }
+        return false;
     }
+
 
 
     public void registerEvents() {
@@ -105,7 +154,6 @@ public class BlockStackerX extends JavaPlugin {
         pluginManager.registerEvents(new StackerBreak(), this);
         pluginManager.registerEvents(new StackerAddBlocks(), this);
         pluginManager.registerEvents(new StackerRemoveBlocks(), this);
-        pluginManager.registerEvents(new ASkyBlockCalculation(), this);
 
     }
 

@@ -4,6 +4,7 @@ usage:
   - '&9&l============================================='
   - ''
   - '&9/BlockStacker give [PLAYER] [TYPE] [<AMOUNT>] &7give players blockStacker related items'
+  - '&9/BlockStacker give [PLAYER] [TYPE] [MATERIAL] [VALUE] &7give player preLoaded Stackers'
   - '&9/BlockStacker getWorth &7messages you with worth of held block'
   - '&9/BlockStacker setWorth [VALUE] &7Set the level value of blocks'
   - '&9/BlockStacker sync &7Attempts to sync your yaml data with mySqlData'

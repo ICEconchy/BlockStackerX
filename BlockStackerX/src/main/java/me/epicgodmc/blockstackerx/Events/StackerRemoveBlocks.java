@@ -35,44 +35,50 @@ public class StackerRemoveBlocks implements Listener {
                 UUID uuid = player.getUniqueId();
                 StackerPlaced sp = placedStacks.getStacker(location);
                 if (sp.getValue() > 0) {
-                    if (sp.getUuid().equals(uuid) || plugin.config.getBoolean("Stackers." + sp.getType() + ".teamStacking") && ASkyBlockAPI.getInstance().getTeamMembers(sp.getUuid()).contains(uuid)) {
-                        if (!util.isPickaxe(player.getItemInHand().getType())) {
-                            if (!player.isSneaking()) {
+                    if (sp.getUuid().equals(uuid) || plugin.config.getBoolean("Stackers." + sp.getType() + ".teamStacking") && util.playerIsOnTeamOf(uuid, sp.getUuid())) {
+                        if (player.hasPermission("bs.takeblocks")) {
+                            if (!util.isPickaxe(player.getItemInHand().getType())) {
+                                if (!player.isSneaking()) {
 
-                                if (hasAvaliableSlot(player, sp.getChosenMaterial(), 1)) {
-                                    sp.decrementValueby(1);
-                                    player.getInventory().addItem(new ItemStack(sp.getChosenMaterial(), 1));
-                                    player.sendMessage(mm.applyCC(mm.getMessage("decrementMessage", true).replace("%AMOUNT%", "1")));
-                                } else {
-                                    player.sendMessage(mm.applyCC(mm.getMessage("noInventorySpace", true)));
-                                }
-                            }
-                            if (player.isSneaking()) {
-                                if (sp.getValue() >= 64) {
-                                    if (hasAvaliableSlot(player, sp.getChosenMaterial(), 64)) {
-                                        sp.decrementValueby(64);
-                                        player.getInventory().addItem(new ItemStack(sp.getChosenMaterial(), 64));
-                                        player.sendMessage(mm.applyCC(mm.getMessage("decrementMessage", true).replace("%AMOUNT%", "64")));
+                                    if (hasAvaliableSlot(player, sp.getChosenMaterial(), 1)) {
+                                        sp.decrementValueby(1);
+                                        player.getInventory().addItem(new ItemStack(sp.getChosenMaterial(), 1));
+                                        player.sendMessage(mm.applyCC(mm.getMessage("decrementMessage", true).replace("%AMOUNT%", "1")));
                                     } else {
                                         player.sendMessage(mm.applyCC(mm.getMessage("noInventorySpace", true)));
-                                        return;
-                                    }
-                                } else {
-                                    if (hasAvaliableSlot(player, sp.getChosenMaterial(), sp.getValue())) {
-                                        player.getInventory().addItem(new ItemStack(sp.getChosenMaterial(), sp.getValue()));
-                                        player.sendMessage(mm.applyCC(mm.getMessage("decrementMessage", true).replace("%AMOUNT%", "" + sp.getValue())));
-                                        sp.setValue(0);
-                                    } else {
-                                        player.sendMessage(mm.applyCC(mm.getMessage("noInventorySpace", true)));
-                                        return;
                                     }
                                 }
-                            }
-                            if (sp.getValue() == 0) {
-                                sp.setChosenMaterial(null);
-                            }
+                                if (player.isSneaking()) {
+                                    if (sp.getValue() >= 64) {
+                                        if (hasAvaliableSlot(player, sp.getChosenMaterial(), 64)) {
+                                            sp.decrementValueby(64);
+                                            player.getInventory().addItem(new ItemStack(sp.getChosenMaterial(), 64));
+                                            player.sendMessage(mm.applyCC(mm.getMessage("decrementMessage", true).replace("%AMOUNT%", "64")));
+                                        } else {
+                                            player.sendMessage(mm.applyCC(mm.getMessage("noInventorySpace", true)));
+                                            return;
+                                        }
+                                    } else {
+                                        if (hasAvaliableSlot(player, sp.getChosenMaterial(), sp.getValue())) {
+                                            player.getInventory().addItem(new ItemStack(sp.getChosenMaterial(), sp.getValue()));
+                                            player.sendMessage(mm.applyCC(mm.getMessage("decrementMessage", true).replace("%AMOUNT%", "" + sp.getValue())));
+                                            sp.setValue(0);
+                                        } else {
+                                            player.sendMessage(mm.applyCC(mm.getMessage("noInventorySpace", true)));
+                                            return;
+                                        }
+                                    }
+                                }
+                                if (sp.getValue() == 0) {
+                                    sp.setChosenMaterial(null);
+                                }
 
-                        }else return;
+                            } else return;
+                        }else{
+                            event.setCancelled(true);
+                            player.sendMessage(mm.applyCC(mm.getMessage("noPermission", true)));
+                            return;
+                        }
                     } else {
                         player.sendMessage(mm.applyCC(mm.getMessage("notYourStacker", true)));
                         return;

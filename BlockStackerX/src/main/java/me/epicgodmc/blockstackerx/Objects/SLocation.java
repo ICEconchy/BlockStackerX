@@ -7,11 +7,11 @@ public class SLocation
 {
 
     String world;
-    int x;
-    int y;
-    int z;
+    double x;
+    double y;
+    double z;
 
-    public SLocation(String world, int x, int y, int z)
+    public SLocation(String world, double x, double y, double z)
     {
         this.world = world;
         this.x = x;
@@ -48,7 +48,7 @@ public class SLocation
         this.world = world;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -56,7 +56,7 @@ public class SLocation
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -64,7 +64,7 @@ public class SLocation
         this.y = y;
     }
 
-    public int getZ() {
+    public double getZ() {
         return z;
     }
 

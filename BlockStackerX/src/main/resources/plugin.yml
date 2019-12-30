@@ -2,6 +2,8 @@ main: me.epicgodmc.blockstackerx.BlockStackerX
 version: 1.0-SNAPSHOT
 name: BlockStackerX
 author: EpicGodMC
+softdepend: [ASkyBlock, SkyblockX]
+depend: [HolographicDisplays, NBTAPI]
 commands:
   blockstackerconsole:
     aliases:
@@ -13,7 +15,27 @@ commands:
 permissions:
   bs.*:
     default: op
+    children:
+      bs.setworth: true
+      bs.list: true
+      bs.give: true
+      bs.getworth: true
+      bs.debug: true
+      bs.sync: true
+      bs.addblocks: true
+      bs.takeblocks: true
+      bs.breakstacker: true
+      bs.placestacker: true
+      bs.placepickupstacker: true
 
+  bs.placepickupstacker:
+    default: not op
+  bs.placestacker:
+    default: not op
+  bs.takeblocks:
+    default: not op
+  bs.addblocks:
+    default: not op
   bs.setworth:
     default: op
   bs.list:
@@ -26,3 +48,5 @@ permissions:
     default: op
   bs.sync:
     default: op
+  bs.breakstacker:
+    default: not op

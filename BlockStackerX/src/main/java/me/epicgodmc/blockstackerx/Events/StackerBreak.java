@@ -3,6 +3,7 @@ package me.epicgodmc.blockstackerx.Events;
 import com.wasteofplastic.askyblock.ASkyBlockAPI;
 import me.epicgodmc.blockstackerx.BlockStackerX;
 import me.epicgodmc.blockstackerx.Data.PlacedStacks;
+import me.epicgodmc.blockstackerx.Utilities.DisplayManager;
 import me.epicgodmc.blockstackerx.Utilities.MessageManager;
 import me.epicgodmc.blockstackerx.Objects.StackerNonSolid;
 import me.epicgodmc.blockstackerx.Objects.StackerPlaced;
@@ -28,19 +29,26 @@ public class StackerBreak implements Listener {
         if (placedStacks.contains(location)) {
             Player player = event.getPlayer();
             StackerPlaced sp = placedStacks.getStacker(location);
-            if (sp.getUuid().equals(player.getUniqueId()) || plugin.config.getBoolean("Stackers." + sp.getType() + ".teamStacking") && ASkyBlockAPI.getInstance().getTeamMembers(sp.getUuid()).contains(player.getUniqueId())) {
-                Material mat = player.getItemInHand().getType();
-                if (util.isPickaxe(mat)) {
+            if (sp.getUuid().equals(player.getUniqueId()) || plugin.config.getBoolean("Stackers." + sp.getType() + ".teamStacking") && util.playerIsOnTeamOf(player.getUniqueId(), sp.getUuid())) {
+                if (player.hasPermission("bs.breakstacker")) {
+                    Material mat = player.getItemInHand().getType();
+                    if (util.isPickaxe(mat)) {
 
 
-                    event.getPlayer().sendMessage(mm.applyCC(mm.getMessage("brokeStacker", true)));
-                    util.KillDisplay(sp.getDisplay());
-                    new StackerNonSolid(sp.getType(), sp.getChosenMaterial(), sp.getValue(), event.getPlayer().getUniqueId());
-                    placedStacks.deleteStack(location);
+                        event.getPlayer().sendMessage(mm.applyCC(mm.getMessage("brokeStacker", true)));
 
-                } else {
+                        DisplayManager.deleteDisplay(sp.getDisplay());
+                        new StackerNonSolid(sp.getType(), sp.getChosenMaterial(), sp.getValue(), event.getPlayer().getUniqueId());
+                        placedStacks.deleteStack(location);
+
+                    } else {
+                        event.setCancelled(true);
+                        player.sendMessage(mm.applyCC(mm.getMessage("holdPickaxe", true)));
+                        return;
+                    }
+                }else{
                     event.setCancelled(true);
-                    player.sendMessage(mm.applyCC(mm.getMessage("holdPickaxe", true)));
+                    player.sendMessage(mm.applyCC(mm.getMessage("noPermission", true)));
                     return;
                 }
             } else {

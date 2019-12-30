@@ -1,10 +1,13 @@
 package me.epicgodmc.blockstackerx.Objects;
 
+import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import me.epicgodmc.blockstackerx.BlockStackerX;
 import me.epicgodmc.blockstackerx.Files.Worth;
+import me.epicgodmc.blockstackerx.Utilities.DisplayManager;
 import me.epicgodmc.blockstackerx.Utilities.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.util.Vector;
@@ -22,12 +25,12 @@ public class StackerPlaced
     private UUID uuid;
     private Material chosenMaterial;
     private SLocation location;
-    private ArmorStand display;
+    private Hologram display;
     private int value;
     private int id;
 
 
-    public StackerPlaced(int id, String type, UUID uuid, Material chosenMaterial, SLocation location, ArmorStand display, int value)
+    public StackerPlaced(int id, String type, UUID uuid, Material chosenMaterial, SLocation location, Hologram display, int value)
     {
         this.type = type;
         this.uuid = uuid;
@@ -68,7 +71,8 @@ public class StackerPlaced
             e.printStackTrace();
             return;
         }
-        ArmorStand display = plugin.util.createDisplay(type, value, displayLoc.toLocation().add(plugin.util.getOffset(type).add(new Vector(0,1,0))));
+        Hologram display = DisplayManager.createDisplay(plugin, type, value, displayLoc.toLocation());
+
 
         this.type = type;
         this.uuid = uuid;
@@ -86,14 +90,12 @@ public class StackerPlaced
     public SLocation formatSlocation(String[] data)
     {
         String world = data[0];
-        int x = 0;
-        int y = 0;
-        int z = 0;
+        double x = 0, y = 0, z = 0;
 
         try{
-            x = Integer.parseInt(data[1]);
-            y = Integer.parseInt(data[2]);
-            z = Integer.parseInt(data[3]);
+            x = Double.parseDouble(data[1]);
+            y = Double.parseDouble(data[2]);
+            z = Double.parseDouble(data[3]);
 
 
         }catch (Exception e)
@@ -129,7 +131,9 @@ public class StackerPlaced
         if (chosenMaterial != null) cmat = chosenMaterial.toString();
         else cmat = "unspecified";
 
-        return this.id+";"+type+";"+uuid.toString()+";"+cmat+";"+location.world+","+location.x+","+location.y+","+location.z+";"+displayLoc.world+","+displayLoc.x+","+displayLoc.y+","+displayLoc.z+";"+value;
+        Location holoLocation = location.toLocation().add(plugin.util.getOffset(type));
+
+        return this.id+";"+type+";"+uuid.toString()+";"+cmat+";"+location.world+","+location.x+","+location.y+","+location.z+";"+holoLocation.getWorld().getName()+","+holoLocation.getX()+","+holoLocation.getY()+","+holoLocation.getZ()+";"+value;
     }
 
     public int getId() {
@@ -171,11 +175,11 @@ public class StackerPlaced
         this.location = location;
     }
 
-    public ArmorStand getDisplay() {
+    public Hologram getDisplay() {
         return display;
     }
 
-    public void setDisplay(ArmorStand display) {
+    public void setDisplay(Hologram display) {
         this.display = display;
     }
 
@@ -186,17 +190,17 @@ public class StackerPlaced
     public void decrementValueby(int value)
     {
         this.value -= value;
-        plugin.util.UpdateDisplay(this.type, this.display, this.value);
+        DisplayManager.updateHologram(plugin, this.display, this.type, this.value);
     }
 
     public void incrementValueBy(int value)
     {
         this.value += value;
-        plugin.util.UpdateDisplay(this.type, this.display, this.value);
+        DisplayManager.updateHologram(plugin, this.display, this.type, this.value);
     }
     public void setValue(int value) {
         this.value = value;
-        plugin.util.UpdateDisplay(this.type, this.display, this.value);
+        DisplayManager.updateHologram(plugin, this.display, this.type, this.value);
 
     }
 }

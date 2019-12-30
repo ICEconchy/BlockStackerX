@@ -38,12 +38,15 @@ public class YamlData
             List<String> confList = plugin.stackData.getStackDataConfig().getStringList("Data");
             confList.clear();
 
+            int amt = 0;
             for (StackerPlaced sp : placedStacks.getPlacedStacksMap().values()) {
                 confList.add(sp.toString());
+                amt++;
 
             }
             plugin.stackData.getStackDataConfig().set("Data", confList);
             plugin.stackData.saveStackDataConfig();
+            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN+"Saved "+amt+" Stackers");
         }else return;
     }
 }

@@ -40,12 +40,13 @@ public class StackerAddBlocks implements Listener {
                     Material mat = player.getItemInHand().getType();
                     NBTItem nbtItem = new NBTItem(player.getItemInHand());
                     List<Material> materialWhiteList = util.getBlockList(sp.getType());
-                    if (materialWhiteList.contains(mat)) {
-                        if (nbtItem.hasNBTData() && nbtItem.hasKey("BlockStackerX") || nbtItem.hasKey("BlockStackerX_nonSolid")){
-                            player.sendMessage(mm.applyCC(mm.getMessage("cantStackStackers", true)));
-                            return;
-                        }
-                        if (sp.getUuid().equals(uuid) || plugin.config.getBoolean("Stackers." + sp.getType() + ".teamStacking") && ASkyBlockAPI.getInstance().getTeamMembers(sp.getUuid()).contains(uuid)) {
+                    if (player.hasPermission("bs.AddBlocks")) {
+                        if (materialWhiteList.contains(mat)) {
+                            if (nbtItem.hasNBTData() && nbtItem.hasKey("BlockStackerX") || nbtItem.hasKey("BlockStackerX_nonSolid")) {
+                                player.sendMessage(mm.applyCC(mm.getMessage("cantStackStackers", true)));
+                                return;
+                            }
+                            if (sp.getUuid().equals(uuid) || plugin.config.getBoolean("Stackers." + sp.getType() + ".teamStacking") && util.playerIsOnTeamOf(uuid, sp.getUuid())) {
                                 if (sp.getValue() == 0) {
                                     sp.setChosenMaterial(mat);
                                     player.sendMessage(mm.applyCC(mm.getMessage("chosenMaterial", true).replace("%BLOCKTYPE%", mat.toString().toLowerCase())));
@@ -53,24 +54,25 @@ public class StackerAddBlocks implements Listener {
                                 if (sp.getChosenMaterial().equals(mat)) {
                                     if (!player.isSneaking()) {
 
-                                        if (sp.getValue()+1 <= plugin.config.getInt("Stackers."+sp.getType()+".maxStack")) {
+                                        if (sp.getValue() + 1 <= plugin.config.getInt("Stackers." + sp.getType() + ".maxStack")) {
                                             int decreaseAmt = decreaseItemInHandBy(player, 1);
                                             sp.incrementValueBy(decreaseAmt);
                                             player.sendMessage(mm.applyCC(mm.getMessage("incrementMessage", true).replace("%AMOUNT%", "" + decreaseAmt)));
 
-                                        }else {
-                                            player.sendMessage(mm.applyCC(mm.getMessage("maxStack", true).replace("%MAX%", ""+plugin.config.getInt("Stackers."+sp.getType()+".maxStack"))));
+                                        } else {
+                                            player.sendMessage(mm.applyCC(mm.getMessage("maxStack", true).replace("%MAX%", "" + plugin.config.getInt("Stackers." + sp.getType() + ".maxStack"))));
                                             return;
                                         }
-                                    } if (player.isSneaking()){
+                                    }
+                                    if (player.isSneaking()) {
 
-                                        if (sp.getValue()+player.getItemInHand().getAmount() <= plugin.config.getInt("Stackers."+sp.getType()+".maxStack")) {
+                                        if (sp.getValue() + player.getItemInHand().getAmount() <= plugin.config.getInt("Stackers." + sp.getType() + ".maxStack")) {
                                             int decreaseAmt = decreaseItemInHandBy(player, 64);
                                             sp.incrementValueBy(decreaseAmt);
                                             player.sendMessage(mm.applyCC(mm.getMessage("incrementMessage", true).replace("%AMOUNT%", "" + decreaseAmt)));
 
-                                        }else{
-                                            player.sendMessage(mm.applyCC(mm.getMessage("maxStack", true).replace("%MAX%", ""+plugin.config.getInt("Stackers."+sp.getType()+".maxStack"))));
+                                        } else {
+                                            player.sendMessage(mm.applyCC(mm.getMessage("maxStack", true).replace("%MAX%", "" + plugin.config.getInt("Stackers." + sp.getType() + ".maxStack"))));
                                             return;
                                         }
                                     }
@@ -79,11 +81,16 @@ public class StackerAddBlocks implements Listener {
                                     return;
                                 }
 
+                            } else {
+                                player.sendMessage(mm.applyCC(mm.getMessage("notYourStacker", true)));
+                            }
                         } else {
-                            player.sendMessage(mm.applyCC(mm.getMessage("notYourStacker", true)));
+                            player.sendMessage(mm.applyCC(mm.getMessage("incorrectBlockInHand", true)));
+                            return;
                         }
-                    } else {
-                        player.sendMessage(mm.applyCC(mm.getMessage("incorrectBlockInHand", true)));
+                    }else{
+                        event.setCancelled(true);
+                        player.sendMessage(mm.applyCC(mm.getMessage("noPermission", true)));
                         return;
                     }
                 } else {
