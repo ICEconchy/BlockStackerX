@@ -17,7 +17,7 @@ import java.util.UUID;
 public class ASkyBlockCalculation implements Listener
 {
 
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private PlacedStacks placedStacks = plugin.placedStacks;
     private MessageManager mm = plugin.messageManager;
 

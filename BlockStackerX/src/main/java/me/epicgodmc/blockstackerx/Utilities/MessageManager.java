@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 public class MessageManager
 {
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
 
     public String applyCC(String input)
     {

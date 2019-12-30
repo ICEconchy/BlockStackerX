@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class SyncCommand extends SubCommand
 {
 
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private MySqlManager mySqlManager = plugin.mySqlManager;
     private MessageManager mm = plugin.messageManager;
 

@@ -1,6 +1,5 @@
 package me.epicgodmc.blockstackerx.Events;
 
-import com.wasteofplastic.askyblock.ASkyBlockAPI;
 import me.epicgodmc.blockstackerx.BlockStackerX;
 import me.epicgodmc.blockstackerx.Data.PlacedStacks;
 import me.epicgodmc.blockstackerx.Utilities.MessageManager;
@@ -19,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.UUID;
 
 public class StackerRemoveBlocks implements Listener {
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private Util util = plugin.util;
     private MessageManager mm = plugin.messageManager;
 

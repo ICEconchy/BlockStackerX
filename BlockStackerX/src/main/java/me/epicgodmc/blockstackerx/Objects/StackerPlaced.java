@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class StackerPlaced
 {
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private Worth worth = plugin.worth;
     private MessageManager mm = plugin.messageManager;
 

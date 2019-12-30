@@ -16,7 +16,7 @@ import java.util.Iterator;
 public class CommandManager implements CommandExecutor
 {
     private ArrayList<SubCommand> commands = new ArrayList<>();
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private MessageManager mm = plugin.messageManager;
 
 

@@ -1,6 +1,5 @@
 package me.epicgodmc.blockstackerx.Events;
 
-import com.google.common.eventbus.EventBus;
 import io.illyria.skyblockx.core.IPlayer;
 import io.illyria.skyblockx.event.IslandPostLevelCalcEvent;
 import me.epicgodmc.blockstackerx.BlockStackerX;
@@ -17,7 +16,7 @@ import java.util.UUID;
 public class SkyBlockXCalculation implements Listener
 {
 
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private PlacedStacks placedStacks = plugin.placedStacks;
     private MessageManager mm = plugin.messageManager;
 

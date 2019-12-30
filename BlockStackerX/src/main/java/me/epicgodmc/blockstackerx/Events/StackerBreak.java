@@ -17,7 +17,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 public class StackerBreak implements Listener {
 
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private Util util = plugin.util;
     private MessageManager mm = plugin.messageManager;
 

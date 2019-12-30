@@ -20,7 +20,7 @@ public class ConsoleCommandManager implements CommandExecutor
 {
 
     private ArrayList<SubCommandConsole> commands = new ArrayList<>();
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private MessageManager mm = plugin.messageManager;
 
 

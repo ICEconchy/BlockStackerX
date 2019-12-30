@@ -11,7 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 public class GiveCommand extends SubCommand {
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private Util util = plugin.util;
     private MessageManager mm = plugin.messageManager;
 

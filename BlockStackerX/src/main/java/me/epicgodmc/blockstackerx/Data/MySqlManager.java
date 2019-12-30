@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class MySqlManager {
 
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private MessageManager mm = plugin.messageManager;
 
     private PlacedStacks placedStacks = plugin.placedStacks;

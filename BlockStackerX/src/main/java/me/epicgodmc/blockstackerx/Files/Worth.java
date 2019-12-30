@@ -14,7 +14,7 @@ public class Worth
 {
 
 
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
 
 
     private File worthConfigFile;

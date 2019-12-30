@@ -19,7 +19,7 @@ public class AutoSave
             YamlData yamlData = plugin.yamlData;
             MySqlManager mySqlManager = plugin.mySqlManager;
             saveIntervalMinutes = plugin.config.getInt("AutosaveInterval");
-            int second = (60 * 20);
+            int minute = (60 * 20);
 
             new BukkitRunnable() {
                 @Override
@@ -41,7 +41,7 @@ public class AutoSave
                     }
 
                 }
-            }.runTaskTimer(plugin, saveIntervalMinutes * second, saveIntervalMinutes * second);
+            }.runTaskTimer(plugin, saveIntervalMinutes * minute, saveIntervalMinutes * minute);
         }
     }
 

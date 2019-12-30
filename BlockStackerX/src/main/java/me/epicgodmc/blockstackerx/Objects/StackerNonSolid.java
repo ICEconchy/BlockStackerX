@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class StackerNonSolid {
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private MessageManager mm = plugin.messageManager;
 
 

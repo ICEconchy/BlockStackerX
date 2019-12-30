@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 public class SetWorthCommand extends SubCommand
 {
 
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private MessageManager mm = plugin.messageManager;
 
     @Override

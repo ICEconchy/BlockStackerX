@@ -12,8 +12,6 @@ import java.util.List;
 
 public class PlacedStacks {
 
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
-
     private HashMap<Location, StackerPlaced> placedStacks = new HashMap<>();
 
 

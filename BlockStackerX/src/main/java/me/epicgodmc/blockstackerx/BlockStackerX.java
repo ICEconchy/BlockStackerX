@@ -21,6 +21,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class BlockStackerX extends JavaPlugin {
+
+    private static BlockStackerX instance;
+    public static BlockStackerX getInstance()
+    {
+        return instance;
+    }
+
+
     public FileConfiguration config = this.getConfig();
     private PluginManager pluginManager = this.getServer().getPluginManager();
 
@@ -51,6 +59,7 @@ public class BlockStackerX extends JavaPlugin {
     @Override
     public void onEnable() {
         if (!checkDependencies()) return;
+        instance = this;
 
         Metrics metrics = new Metrics(this);
         

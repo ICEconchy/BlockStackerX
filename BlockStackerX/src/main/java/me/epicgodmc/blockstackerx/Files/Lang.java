@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Lang
 {
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
 
 
     private File langConfigFile;

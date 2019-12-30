@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class Util {
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private MessageManager mm = plugin.messageManager;
 
     public boolean playerIsOnTeamOf(UUID player, UUID target) {

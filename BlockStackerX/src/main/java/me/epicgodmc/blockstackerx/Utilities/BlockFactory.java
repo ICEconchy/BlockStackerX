@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class BlockFactory
 {
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
     private MessageManager mm = plugin.messageManager;
 
 

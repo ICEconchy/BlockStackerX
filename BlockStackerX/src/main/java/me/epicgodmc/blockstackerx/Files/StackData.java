@@ -11,7 +11,7 @@ import java.io.IOException;
 public class StackData
 {
 
-    private BlockStackerX plugin = BlockStackerX.getPlugin(BlockStackerX.class);
+    private BlockStackerX plugin = BlockStackerX.getInstance();
 
 
     private File stackdataConfigFile;
